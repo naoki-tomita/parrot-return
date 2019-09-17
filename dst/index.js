@@ -38,8 +38,11 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 Object.defineProperty(exports, "__esModule", { value: true });
 function handle(event, context) {
     return __awaiter(this, void 0, void 0, function () {
+        var status;
         return __generator(this, function (_a) {
-            context.cb({ xxxx: "hello world" });
+            console.log(Object.keys(context));
+            status = context.status(200);
+            console.log(Object.keys(status));
             return [2 /*return*/];
         });
     });

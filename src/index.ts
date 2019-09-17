@@ -21,9 +21,14 @@ interface FunctionEvent {
 interface FunctionContext {
   value: number;
   cb(...args: any[]): void;
+  status(status: number): FunctionContext;
+  succeed(arg: any): void;
   headerValues: { [key: string]: string };
 }
 
 export async function handle(event: FunctionEvent, context: FunctionContext) {
-  context.cb({ xxxx: "hello world" });
+  console.log(Object.keys(context));
+  const status = context.status(200);
+  console.log(Object.keys(status));
+  status.succeed({ foo: "bar" });
 }
