@@ -1,9 +1,5 @@
-module.exports = (e, context) => {
-  console.log(e);
-  console.log(context);
-  const result = {
-      status: 'Hello Serverless',
-  };
+const { handle } = require("./dst/index");
 
-  context.status(200).succeed(result);
+module.exports = (e, context) => {
+  handle(e, context);
 };
