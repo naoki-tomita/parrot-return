@@ -19,7 +19,6 @@ interface FunctionEvent {
 }
 
 interface FunctionContext {
-  (...args: any[]): void;
   value: number;
   cb(...args: any[]): void;
   status(status: number): FunctionContext;
@@ -28,5 +27,5 @@ interface FunctionContext {
 }
 
 export async function handle(event: FunctionEvent, context: FunctionContext) {
-  context({ foo: "bar" });
+  context.status(200).succeed({ foo: "bar" });
 }
