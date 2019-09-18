@@ -11,6 +11,6 @@
     "typescript": "^3.6.3"
   },
   "scripts": {
-    "postinstall": "tsc"
+    "build": "tsc"
   }
 }

@@ -36,12 +36,68 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+var pg_1 = require("pg");
 function handle(event, context) {
     return __awaiter(this, void 0, void 0, function () {
+        var r;
         return __generator(this, function (_a) {
-            context.status(200).succeed({ foo: "bar" });
-            return [2 /*return*/];
+            switch (_a.label) {
+                case 0:
+                    if (!event.path.includes("init")) return [3 /*break*/, 2];
+                    return [4 /*yield*/, init()];
+                case 1:
+                    _a.sent();
+                    context.status(200).succeed({ ok: "created" });
+                    return [3 /*break*/, 4];
+                case 2: return [4 /*yield*/, get()];
+                case 3:
+                    r = _a.sent();
+                    context.status(200).succeed(r);
+                    _a.label = 4;
+                case 4: return [2 /*return*/];
+            }
         });
     });
 }
 exports.handle = handle;
+function init() {
+    return __awaiter(this, void 0, void 0, function () {
+        var client;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    client = new pg_1.Client({
+                        connectionString: process.env.CONNECTION
+                    });
+                    return [4 /*yield*/, client.connect()];
+                case 1:
+                    _a.sent();
+                    return [4 /*yield*/, client.query("\n    CREATE TABLE IF NOT EXISTS test (\n      id     CHAR(4)    NOT NULL,\n      name   TEXT       NOT NULL,\n      age    INTEGER,\n      PRIMARY KEY (id)\n    );\n  ")];
+                case 2:
+                    _a.sent();
+                    return [4 /*yield*/, client.query("INSERT INTO test (id, name, age) VALUES (1, \"foo\", 23);")];
+                case 3:
+                    _a.sent();
+                    return [2 /*return*/];
+            }
+        });
+    });
+}
+function get() {
+    return __awaiter(this, void 0, void 0, function () {
+        var client;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    client = new pg_1.Client({
+                        connectionString: process.env.CONNECTION
+                    });
+                    return [4 /*yield*/, client.connect()];
+                case 1:
+                    _a.sent();
+                    return [4 /*yield*/, client.query("SELECT * FROM test;")];
+                case 2: return [2 /*return*/, _a.sent()];
+            }
+        });
+    });
+}
