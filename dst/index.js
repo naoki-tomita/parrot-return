@@ -39,6 +39,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 function handle(event, context) {
     return __awaiter(this, void 0, void 0, function () {
         return __generator(this, function (_a) {
+            console.log(Object.keys(context.prototype));
             context.status(200).succeed({ foo: "bar" });
             return [2 /*return*/];
         });
