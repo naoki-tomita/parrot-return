@@ -27,5 +27,6 @@ interface FunctionContext {
 }
 
 export async function handle(event: FunctionEvent, context: FunctionContext) {
+  console.log(Object.keys((context as any).prototype));
   context.status(200).succeed({ foo: "bar" });
 }
