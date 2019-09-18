@@ -14,7 +14,10 @@ export async function handle(event: FunctionEvent, context: FunctionContext) {
 
 async function init() {
   const client = new Client({
-    connectionString: process.env.CONNECTION
+    host: "parrot-brain-764464b8ea-postgresql",
+    user: "postgres",
+    password: process.env.PASSWORD,
+    database: "postgres"
   });
   await client.connect();
   await client.query(`
