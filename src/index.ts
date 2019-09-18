@@ -3,12 +3,16 @@ import { Client } from "pg";
 import { FunctionEvent, FunctionContext } from "./Types";
 
 export async function handle(event: FunctionEvent, context: FunctionContext) {
-  if (event.path.includes("init")) {
-    await init();
-    context.status(200).succeed({ ok: "created" });
-  } else {
-    const r = await get();
-    context.status(200).succeed(r);
+  try {
+    if (event.path.includes("init")) {
+      await init();
+      context.status(200).succeed({ ok: "created" });
+    } else {
+      const r = await get();
+      context.status(200).succeed(r);
+    }
+  } catch(e) {
+    context.status(200).succeed(e);
   }
 }
 

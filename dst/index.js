@@ -39,10 +39,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var pg_1 = require("pg");
 function handle(event, context) {
     return __awaiter(this, void 0, void 0, function () {
-        var r;
+        var r, e_1;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
+                    _a.trys.push([0, 5, , 6]);
                     if (!event.path.includes("init")) return [3 /*break*/, 2];
                     return [4 /*yield*/, init()];
                 case 1:
@@ -54,7 +55,12 @@ function handle(event, context) {
                     r = _a.sent();
                     context.status(200).succeed(r);
                     _a.label = 4;
-                case 4: return [2 /*return*/];
+                case 4: return [3 /*break*/, 6];
+                case 5:
+                    e_1 = _a.sent();
+                    context.status(200).succeed(e_1);
+                    return [3 /*break*/, 6];
+                case 6: return [2 /*return*/];
             }
         });
     });
