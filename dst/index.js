@@ -90,7 +90,10 @@ function get() {
             switch (_a.label) {
                 case 0:
                     client = new pg_1.Client({
-                        connectionString: process.env.CONNECTION
+                        host: "parrot-brain-764464b8ea-postgresql",
+                        user: "postgres",
+                        password: process.env.PASSWORD,
+                        database: "postgres"
                     });
                     return [4 /*yield*/, client.connect()];
                 case 1:

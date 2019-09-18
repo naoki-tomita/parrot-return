@@ -30,7 +30,10 @@ async function init() {
 
 async function get() {
   const client = new Client({
-    connectionString: process.env.CONNECTION
+    host: "parrot-brain-764464b8ea-postgresql",
+    user: "postgres",
+    password: process.env.PASSWORD,
+    database: "postgres"
   });
   await client.connect();
   return await client.query(`SELECT * FROM test;`)
