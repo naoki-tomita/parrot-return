@@ -36,76 +36,38 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var pg_1 = require("pg");
+var puppeteer_1 = require("puppeteer");
 function handle(event, context) {
     return __awaiter(this, void 0, void 0, function () {
-        var r, e_1;
+        var browser, page, binary, e_1;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    _a.trys.push([0, 5, , 6]);
-                    if (!event.path.includes("init")) return [3 /*break*/, 2];
-                    return [4 /*yield*/, init()];
+                    _a.trys.push([0, 6, , 7]);
+                    return [4 /*yield*/, puppeteer_1.launch({ headless: true })];
                 case 1:
-                    _a.sent();
-                    context.status(200).succeed({ ok: "created" });
-                    return [3 /*break*/, 4];
-                case 2: return [4 /*yield*/, get()];
+                    browser = _a.sent();
+                    return [4 /*yield*/, browser.newPage()];
+                case 2:
+                    page = _a.sent();
+                    return [4 /*yield*/, page.goto('https://www.google.com')];
                 case 3:
-                    r = _a.sent();
-                    context.status(200).succeed(r);
-                    _a.label = 4;
-                case 4: return [3 /*break*/, 6];
+                    _a.sent();
+                    return [4 /*yield*/, page.screenshot({ fullPage: true, encoding: "binary", type: "png" })];
+                case 4:
+                    binary = _a.sent();
+                    return [4 /*yield*/, browser.close()];
                 case 5:
+                    _a.sent();
+                    context.status(200).succeed(binary);
+                    return [3 /*break*/, 7];
+                case 6:
                     e_1 = _a.sent();
-                    context.status(200).succeed(e_1);
-                    return [3 /*break*/, 6];
-                case 6: return [2 /*return*/];
+                    context.status(500).succeed(e_1);
+                    return [3 /*break*/, 7];
+                case 7: return [2 /*return*/];
             }
         });
     });
 }
 exports.handle = handle;
-var options = {
-    host: "parrot-a3286f12b1-postgresql",
-    user: "postgres",
-    password: process.env.PASSWORD,
-    database: "postgres"
-};
-function init() {
-    return __awaiter(this, void 0, void 0, function () {
-        var client;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0:
-                    client = new pg_1.Client(options);
-                    return [4 /*yield*/, client.connect()];
-                case 1:
-                    _a.sent();
-                    return [4 /*yield*/, client.query("\n    CREATE TABLE IF NOT EXISTS test (\n      id     CHAR(4)    NOT NULL,\n      name   TEXT       NOT NULL,\n      age    INTEGER,\n      PRIMARY KEY (id)\n    );\n  ")];
-                case 2:
-                    _a.sent();
-                    return [4 /*yield*/, client.query("INSERT INTO test (id, name, age) VALUES (1, \"foo\", 23);")];
-                case 3:
-                    _a.sent();
-                    return [2 /*return*/];
-            }
-        });
-    });
-}
-function get() {
-    return __awaiter(this, void 0, void 0, function () {
-        var client;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0:
-                    client = new pg_1.Client(options);
-                    return [4 /*yield*/, client.connect()];
-                case 1:
-                    _a.sent();
-                    return [4 /*yield*/, client.query("SELECT * FROM test;")];
-                case 2: return [2 /*return*/, _a.sent()];
-            }
-        });
-    });
-}
