@@ -16,13 +16,15 @@ export async function handle(event: FunctionEvent, context: FunctionContext) {
   }
 }
 
+const options = {
+  host: "parrot-a3286f12b1-postgresql",
+  user: "postgres",
+  password: process.env.PASSWORD,
+  database: "postgres"
+}
+
 async function init() {
-  const client = new Client({
-    host: "parrot-brain-764464b8ea-postgresql",
-    user: "postgres",
-    password: process.env.PASSWORD,
-    database: "postgres"
-  });
+  const client = new Client(options);
   await client.connect();
   await client.query(`
     CREATE TABLE IF NOT EXISTS test (
@@ -36,12 +38,7 @@ async function init() {
 }
 
 async function get() {
-  const client = new Client({
-    host: "parrot-brain-764464b8ea-postgresql",
-    user: "postgres",
-    password: process.env.PASSWORD,
-    database: "postgres"
-  });
+  const client = new Client(options);
   await client.connect();
   return await client.query(`SELECT * FROM test;`)
 }
