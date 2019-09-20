@@ -66,18 +66,19 @@ function handle(event, context) {
     });
 }
 exports.handle = handle;
+var options = {
+    host: "parrot-a3286f12b1-postgresql",
+    user: "postgres",
+    password: process.env.PASSWORD,
+    database: "postgres"
+};
 function init() {
     return __awaiter(this, void 0, void 0, function () {
         var client;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    client = new pg_1.Client({
-                        host: "parrot-brain-764464b8ea-postgresql",
-                        user: "postgres",
-                        password: process.env.PASSWORD,
-                        database: "postgres"
-                    });
+                    client = new pg_1.Client(options);
                     return [4 /*yield*/, client.connect()];
                 case 1:
                     _a.sent();
@@ -98,12 +99,7 @@ function get() {
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    client = new pg_1.Client({
-                        host: "parrot-brain-764464b8ea-postgresql",
-                        user: "postgres",
-                        password: process.env.PASSWORD,
-                        database: "postgres"
-                    });
+                    client = new pg_1.Client(options);
                     return [4 /*yield*/, client.connect()];
                 case 1:
                     _a.sent();
