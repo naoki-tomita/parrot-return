@@ -63,6 +63,7 @@ function handle(event, context) {
                     return [3 /*break*/, 7];
                 case 6:
                     e_1 = _a.sent();
+                    console.log(e_1);
                     context.status(500).succeed(e_1);
                     return [3 /*break*/, 7];
                 case 7: return [2 /*return*/];

@@ -11,6 +11,7 @@ export async function handle(event: FunctionEvent, context: FunctionContext) {
     await browser.close();
     context.status(200).succeed(binary);
   } catch(e) {
+    console.log(e);
     context.status(500).succeed(e);
   }
 }
